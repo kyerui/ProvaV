@@ -96,7 +96,7 @@
         accuracy                           0.66       140
         macro avg       0.66      0.66      0.66       140
 
-    ![Matriz de Confusão](MC.png)
+![Matriz de Confusão](MC.png)
 
     Durante o processo de classificação, ele errou 3 imagens, acertando apenas 50% das imagens, sendo os erros as imagens de 2 gatos e 1 cachorro. 
 
