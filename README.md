@@ -2,16 +2,16 @@
 
 #Descrição do problema
 
-Implementar um pipeline básico de visão computacional que inclui:
+    Implementar um pipeline básico de visão computacional que inclui:
     - Carregamento e pré-processamento de imagens;
     - Extração de características;
     - Classificação por modelo de IA;
 
-Para isso, a database escolhida foi a de cachorros e gatos, onde posteriormente será feita a classifitação de novas instâncias.
+    Para isso, a database escolhida foi a de cachorros e gatos, onde posteriormente será feita a classifitação de novas instâncias.
 
 #Etapas realizadas
 
-Classificador:
+    Classificador:
         Etapa 1 - Definir dos caminhos(de onde está a database) e parâmetros;
         Etapa 2 - Carregar e vetorizar as imagens usando cv2;
         Etapa 3 - Carregar os dados de treino e teste;
@@ -20,7 +20,7 @@ Classificador:
         Etapa 6 - Fazer a avaliação do modelo;
         Etapa 7 - Salvar os modelos;
 
-Nova Instância:
+    Nova Instância:
         Etapa 1 - Carrega os modelos salvos;
         Etapa 2 - Realiza o pré-processamento;
         Etapa 3 - Classifica e exibe as imagens;
@@ -28,7 +28,7 @@ Nova Instância:
 
 #Justificativa das técnicas utilizadas
 
-Classificador:
+    Classificador:
         Etapa 1:
             Basicamente, eu pego o local de onde está a base de dados para extrair os dados e defino o tamanho das imagens que serão treinadas posteriormente.
         Etapa 2:
@@ -64,7 +64,7 @@ Classificador:
             dump(scaler, 'image_scaler.pkl'): persiste o objeto de normalização para uso consistente em futuras previsões.
             dump(clf, 'image_tree_model.pkl'): serializa o modelo treinado para implantação ou reuso sem necessidade de novo treinamento.
 
-Nova Instância:
+    Nova Instância:
         Etapa 1:
             load(open()): Carrega os modelos.
         Etapa 2:
@@ -98,15 +98,15 @@ Nova Instância:
 
 ![Matriz de Confusão](MC.png)
 
-   Durante o processo de classificação, ele errou 3 imagens, acertando apenas 50% das imagens, sendo os erros as imagens de 2 gatos e 1 cachorro. 
+       Durante o processo de classificação, ele errou 3 imagens, acertando apenas 50% das imagens, sendo os erros as imagens de 2 gatos e 1 cachorro. 
 
 
 #Tempo total gasto
 
-   Levou-se algum tempo para conseguir realizar o código, mas o mais demorado foi o python, que por algum motivo estava bugado e tive que reinstalar ele, já que ele não conseguia ler algumas bibliotecas, como a matplotlib.
-Em geral, dudante o treinameiro, resultou em cerca de 32 minutos.
+        Levou-se algum tempo para conseguir realizar o código, mas o mais demorado foi o python, que por algum motivo estava bugado e tive que reinstalar ele, já que ele não conseguia ler algumas bibliotecas, como a matplotlib.
+        Em geral, dudante o treinameiro, resultou em cerca de 32 minutos.
 
 #Dificuldades encontradas
 
-   Dificuldades com a biblioteca do python e o python em si, pois ele não funcionava o tensorflow de forma alguma, então desisti dessa biblioteca e posteriormente tive que o reinstalar para conseguir usar efetivamente as bibliotecas.
-   Tempo de execução do treinamento foi um pouco longo, afinal, tive que treinalo mais de uma vez, onde eu havia percebido que precisaria que as imagens de uma nova instância precisariam estar com o mesmo tamanho, onde inicialmente era 60x60, onde percebi meu erro somente após treinar.
+       Dificuldades com a biblioteca do python e o python em si, pois ele não funcionava o tensorflow de forma alguma, então desisti dessa biblioteca e posteriormente tive que o reinstalar para conseguir usar efetivamente as bibliotecas.
+       Tempo de execução do treinamento foi um pouco longo, afinal, tive que treinalo mais de uma vez, onde eu havia percebido que precisaria que as imagens de uma nova instância precisariam estar com o mesmo tamanho, onde inicialmente era 60x60, onde percebi meu erro somente após treinar.
