@@ -19,46 +19,32 @@ from sklearn.metrics import (
 )
 from pickle import dump
 
-# =============================================================================
-# 1) Definições de caminhos e parâmetros
-# =============================================================================
-BASE_DIR = 'dados'            # pasta raiz
+BASE_DIR = 'dados'            
 TRAIN_DIR = os.path.join(BASE_DIR, 'train')
 TEST_DIR  = os.path.join(BASE_DIR, 'test')
-IMG_SIZE = (128, 128)           # todas as imagens serão redimensionadas para 64×64
+IMG_SIZE = (128, 128)           
 
-# =============================================================================
-# 2) Função para carregar e vetorizar imagens de um diretório com cv2
-# =============================================================================
 def load_image_folder_cv2(folder_path, label):
     X, y = [], []
     pattern = os.path.join(folder_path, '*.jpg')
     for img_path in glob.glob(pattern):
-        # lê em BGR e converte para RGB
         img_bgr = cv2.imread(img_path)
         if img_bgr is None:
-            continue  # pula imagens corrompidas
+            continue  
         img_rgb = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2RGB)
-        # redimensiona
         img_resized = cv2.resize(img_rgb, IMG_SIZE, interpolation=cv2.INTER_AREA)
-        # flatten para vetor e normalizar dtype
         arr = img_resized.astype(np.float32).flatten()
         X.append(arr)
         y.append(label)
     return X, y
 
-# =============================================================================
-# 3) Carrega os dados de treino e teste
-# =============================================================================
 X_train, y_train = [], []
 X_test,  y_test  = [], []
 
-# carregar gatos e cães de treino
 for cls, lbl in [('cats', 0), ('dogs', 1)]:
     Xt, yt = load_image_folder_cv2(os.path.join(TRAIN_DIR, cls), lbl)
     X_train += Xt;  y_train += yt
 
-# carregar gatos e cães de teste
 for cls, lbl in [('cats', 0), ('dogs', 1)]:
     Xt, yt = load_image_folder_cv2(os.path.join(TEST_DIR, cls), lbl)
     X_test  += Xt;  y_test  += yt
@@ -71,16 +57,10 @@ y_test  = np.array(y_test)
 print("Distribuição original (treino):", Counter(y_train))
 print("Distribuição original (teste):",  Counter(y_test))
 
-# =============================================================================
-# 4) Balanceamento com SMOTE (apenas no conjunto de treino)
-# =============================================================================
 sm = SMOTE(random_state=42)
 X_train_bal, y_train_bal = sm.fit_resample(X_train, y_train)
 print("Após SMOTE (treino):", Counter(y_train_bal))
 
-# =============================================================================
-# 5) Pipeline: normalização + DecisionTree + GridSearchCV
-# =============================================================================
 pipe = Pipeline([
     ('scaler', MinMaxScaler()),
     ('clf', DecisionTreeClassifier(random_state=42))
@@ -109,9 +89,6 @@ grid.fit(X_train_bal, y_train_bal)
 print("Melhores parâmetros:", grid.best_params_)
 print("Melhor acurácia no CV (treino):", grid.best_score_)
 
-# =============================================================================
-# 6) Avaliação final sobre o conjunto de teste
-# =============================================================================
 best_model = grid.best_estimator_
 y_pred = best_model.predict(X_test)
 
@@ -127,7 +104,6 @@ print(f"F1-score  (macro): {f1:.4f}\n")
 
 print("Relatório completo:\n", classification_report(y_test, y_pred, target_names=['cats','dogs']))
 
-# Matriz de Confusão
 disp = ConfusionMatrixDisplay.from_estimator(
     best_model, X_test, y_test,
     display_labels=['cats','dogs'],
@@ -136,9 +112,6 @@ disp = ConfusionMatrixDisplay.from_estimator(
 plt.title("Matriz de Confusão")
 plt.show()
 
-# =============================================================================
-# 7) Salvando o modelo e o scaler
-# =============================================================================
 os.makedirs('Classificador/dados', exist_ok=True)
 dump(grid.best_estimator_.named_steps['scaler'],
      open('Classificador/dados/image_scaler.pkl', 'wb'))
