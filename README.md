@@ -1,6 +1,6 @@
 # ProvaV
 
-##Descrição do problema
+#Descrição do problema
 
     Implementar um pipeline básico de visão computacional que inclui:
     - Carregamento e pré-processamento de imagens;
@@ -9,7 +9,8 @@
 
     Para isso, a database escolhida foi a de cachorros e gatos, onde posteriormente será feita a classifitação de novas instâncias.
 
-##Etapas realizadas
+#Etapas realizadas
+
     Classificador:
         Etapa 1 - Definir dos caminhos(de onde está a database) e parâmetros;
         Etapa 2 - Carregar e vetorizar as imagens usando cv2;
@@ -25,7 +26,7 @@
         Etapa 3 - Classifica e exibe as imagens;
 
 
-##Justificativa das técnicas utilizadas
+#Justificativa das técnicas utilizadas
 
     Classificador:
         Etapa 1:
@@ -85,7 +86,7 @@
             plt.imshow(cv2.cvtColor(preprocessed_img, cv2.COLOR_BGR2RGB)): exibe a imagem pré-processada em cores corretas para visualização.
             plt.show(): renderiza o gráfico, mostrando a imagem e sua previsão ao usuário.
     
-##Resultados obtidos
+#Resultados obtidos
 
                 precision    recall  f1-score   support
 
@@ -100,12 +101,12 @@
     Durante o processo de classificação, ele errou 3 imagens, acertando apenas 50% das imagens, sendo os erros as imagens de 2 gatos e 1 cachorro. 
 
 
-##Tempo total gasto
+#Tempo total gasto
 
     Levou-se algum tempo para conseguir realizar o código, mas o mais demorado foi o python, que por algum motivo estava bugado e tive que reinstalar ele, já que ele não conseguia ler algumas bibliotecas, como a matplotlib.
     Em geral, dudante o treinameiro, resultou em cerca de 32 minutos.
 
-##Dificuldades encontradas
+#Dificuldades encontradas
 
     Dificuldades com a biblioteca do python e o python em si, pois ele não funcionava o tensorflow de forma alguma, então desisti dessa biblioteca e posteriormente tive que o reinstalar para conseguir usar efetivamente as bibliotecas.
     Tempo de execução do treinamento foi um pouco longo, afinal, tive que treinalo mais de uma vez, onde eu havia percebido que precisaria que as imagens de uma nova instância precisariam estar com o mesmo tamanho, onde inicialmente era 60x60, onde percebi meu erro somente após treinar.
