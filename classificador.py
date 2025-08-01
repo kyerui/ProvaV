@@ -23,7 +23,7 @@ BASE_DIR = 'dados'
 TRAIN_DIR = os.path.join(BASE_DIR, 'train')
 TEST_DIR  = os.path.join(BASE_DIR, 'test')
 IMG_SIZE = (128, 128)           
-
+#
 def load_image_folder_cv2(folder_path, label):
     X, y = [], []
     pattern = os.path.join(folder_path, '*.jpg')
